@@ -1,0 +1,7 @@
+*
+!.gitignore
+!Dockerfile
+
+!php-fpm.d
+!zzz-www.conf.sample
+!php.ini.sample

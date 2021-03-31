@@ -1,0 +1,26 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Support\Facades\DB;
+
+class {{ class }}
+{
+    public function __invoke(Model $model): Model
+    {
+        assert($model->exists);
+        assert(!$model->exists);
+
+        DB::beginTransaction();
+        try {
+            $model->save();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            abort(response(['message' => $e->getMessage()], 500));
+        }
+
+        $model->refresh();
+        return $model;
+    }
+}
